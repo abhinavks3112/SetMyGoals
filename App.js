@@ -8,8 +8,14 @@ export default function App() {
 
   const addGoalHandler = (enteredGoal) => {
     //if 'key' property name used no need to specify keyextractor otherwise needed
-    setListGoals(listGoals => [...listGoals, { id: Math.random().toString(), value: enteredGoal }]);
+    setListGoals(currentGoals => [...currentGoals, { id: Math.random().toString(), value: enteredGoal }]);
   };  
+
+  const deleteGoalHandler = goalId => {
+    setListGoals(currentGoals => {
+      return currentGoals.filter((currentGoal) => currentGoal.id !== goalId);
+    });
+  }
 
   return (
     <View style={styles.rootViewStyle}>
@@ -18,7 +24,12 @@ export default function App() {
       />
       <FlatList 
         data={listGoals}
-        renderItem={(goal) => <GoalItem goal={goal.item.value} />}
+        renderItem={(goal) => 
+        <GoalItem 
+        id={goal.item.id}
+        goal={goal.item.value} 
+        onDelete={() => deleteGoalHandler(goal.item.id)}          
+        />}
         keyExtractor={(item) => item.id}
       />      
     </View>

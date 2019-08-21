@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
 const GoalInput = ({ onButtonPress }) => {
     const [ enteredGoal, setEnteredGoal ] = useState('');
 
-    const goalInputHandler = (enteredText) => {
-        setEnteredGoal(enteredText);
+    const goalInputHandler = (enteredGoal) => {
+        setEnteredGoal(enteredGoal);
     };
 
     return (
@@ -14,7 +14,7 @@ const GoalInput = ({ onButtonPress }) => {
             placeholder="Please enter your goal here" 
             style={styles.textInputStyle} 
             onChangeText={goalInputHandler}
-            value={enteredText}
+            value={enteredGoal}
             />
             <Button title="ADD" onPress={onButtonPress.bind(this, enteredGoal)} />
             {/* Other way to pass argument would be ()=>onButtonPress(enteredGoal) */}
