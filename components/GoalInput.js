@@ -1,7 +1,7 @@
 import React, { useState }  from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 
-const GoalInput = ({ onButtonPress }) => {
+const GoalInput = ({ onButtonPress, visible }) => {
     const [ enteredGoal, setEnteredGoal ] = useState('');
 
     const goalInputHandler = (enteredGoal) => {
@@ -9,16 +9,18 @@ const GoalInput = ({ onButtonPress }) => {
     };
 
     return (
-        <View style={styles.inputContainerStyle}>
-            <TextInput 
-            placeholder="Please enter your goal here" 
-            style={styles.textInputStyle} 
-            onChangeText={goalInputHandler}
-            value={enteredGoal}
-            />
-            <Button title="ADD" onPress={onButtonPress.bind(this, enteredGoal)} />
-            {/* Other way to pass argument would be ()=>onButtonPress(enteredGoal) */}
-        </View>
+        <Modal visible={visible} animationType='slide' >
+            <View style={styles.inputContainerStyle}>
+                <TextInput 
+                placeholder="Please enter your goal here" 
+                style={styles.textInputStyle} 
+                onChangeText={goalInputHandler}
+                value={enteredGoal}
+                />
+                <Button title="ADD" onPress={onButtonPress.bind(this, enteredGoal)} />
+                {/* Other way to pass argument would be ()=>onButtonPress(enteredGoal) */}
+            </View>
+        </Modal>
     );
 };
 
