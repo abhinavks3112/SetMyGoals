@@ -1,12 +1,17 @@
 import React, { useState }  from 'react';
 import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 
-const GoalInput = ({ onButtonPress, visible }) => {
+const GoalInput = ({ onAddPress, onCancelPress, visible }) => {
     const [ enteredGoal, setEnteredGoal ] = useState('');
 
     const goalInputHandler = (enteredGoal) => {
         setEnteredGoal(enteredGoal);
     };
+
+    const addGoalHandler = () => {         
+        onAddPress(enteredGoal);
+        setEnteredGoal('');
+    }
 
     return (
         <Modal visible={visible} animationType='slide' >
@@ -17,8 +22,15 @@ const GoalInput = ({ onButtonPress, visible }) => {
                 onChangeText={goalInputHandler}
                 value={enteredGoal}
                 />
-                <Button title="ADD" onPress={onButtonPress.bind(this, enteredGoal)} />
-                {/* Other way to pass argument would be ()=>onButtonPress(enteredGoal) */}
+                <View style={styles.buttonContainerStyle}>
+                    {/* Other way to pass argument would be ()=>onButtonPress(enteredGoal) */}
+                    <View style={styles.buttonStyle}>
+                        <Button title="ADD" onPress={addGoalHandler} />  
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <Button title="CANCEL" color='red' onPress={onCancelPress} />
+                    </View> 
+                </View>
             </View>
         </Modal>
     );
@@ -26,14 +38,23 @@ const GoalInput = ({ onButtonPress, visible }) => {
 
 const styles=StyleSheet.create({
     inputContainerStyle: {
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center'
     },
     textInputStyle: {
         borderColor: 'black', 
         borderWidth: 1, 
-        width: '80%'
+        width: '80%',
+        marginBottom: 10
+    },
+    buttonContainerStyle: {
+        width: '60%',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    buttonStyle: {
+        width: '40%'
     }
 });
 

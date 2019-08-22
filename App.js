@@ -8,8 +8,9 @@ export default function App() {
   const [ listGoals, setListGoals ] = useState([]);
 
   const addGoalHandler = (enteredGoal) => {
-    //if 'key' property name used no need to specify keyextractor otherwise needed
-    setListGoals(currentGoals => [...currentGoals, { id: Math.random().toString(), value: enteredGoal }]);
+      //if 'key' property name used no need to specify keyextractor otherwise needed
+      setListGoals(currentGoals => [...currentGoals, { id: Math.random().toString(), value: enteredGoal }]);
+      setIsAddMode(false);    
   };  
 
   const deleteGoalHandler = goalId => {
@@ -18,12 +19,17 @@ export default function App() {
     });
   }
 
+  const cancelGoalHandler = () => {
+    setIsAddMode(false);
+  }
+
   return (
-    <View style={styles.rootViewStyle}>
-      <Button title="Add New Goal" onPress={() => setIsAddMode(true)} />
+    <View style={styles.rootViewStyle}>      
+      <Button title="Add New Goal" onPress={() => setIsAddMode(true)} />      
       <GoalInput
         visible={isAddMode}
-        onButtonPress={addGoalHandler}
+        onAddPress={addGoalHandler}
+        onCancelPress={cancelGoalHandler}
       />
       <FlatList 
         data={listGoals}
@@ -31,7 +37,7 @@ export default function App() {
         <GoalItem 
         id={goal.item.id}
         goal={goal.item.value} 
-        onDelete={() => deleteGoalHandler(goal.item.id)}          
+        onDelete={() => deleteGoalHandler(goal.item.id)}                  
         />}
         keyExtractor={(item) => item.id}
       />      
@@ -42,5 +48,5 @@ export default function App() {
 const styles = StyleSheet.create({
  rootViewStyle: {
   padding: 30
- } 
+ }
 });
