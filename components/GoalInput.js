@@ -13,6 +13,11 @@ const GoalInput = ({ onAddPress, onCancelPress, visible }) => {
         setEnteredGoal('');
     }
 
+    const cancelGoalHandler = () => {         
+        onCancelPress();
+        setEnteredGoal('');
+    }
+
     return (
         <Modal visible={visible} animationType='slide' >
             <View style={styles.inputContainerStyle}>
@@ -28,7 +33,7 @@ const GoalInput = ({ onAddPress, onCancelPress, visible }) => {
                         <Button title="ADD" onPress={addGoalHandler} />  
                     </View>
                     <View style={styles.buttonStyle}>
-                        <Button title="CANCEL" color='red' onPress={onCancelPress} />
+                        <Button title="CANCEL" color='red' onPress={cancelGoalHandler} />
                     </View> 
                 </View>
             </View>

@@ -8,6 +8,9 @@ export default function App() {
   const [ listGoals, setListGoals ] = useState([]);
 
   const addGoalHandler = (enteredGoal) => {
+    if(enteredGoal.length === 0) {
+      return;
+    }
       //if 'key' property name used no need to specify keyextractor otherwise needed
       setListGoals(currentGoals => [...currentGoals, { id: Math.random().toString(), value: enteredGoal }]);
       setIsAddMode(false);    
